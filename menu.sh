@@ -235,6 +235,11 @@ function change_secure_stat() {
         --url "$API_BASE_URL/api/secure_stat"
 }
 
+function cleardata() {
+    curl --request POST \
+        --url "$API_BASE_URL/api/cleardata"
+}
+
 while true; do
     clear
     echo "========= API Interaction Script ========="
@@ -257,7 +262,8 @@ while true; do
     echo "17. Restart Services"
     echo "18. Manual Backup"
     echo "19. Change Secure Stat"
-    echo "20. Exit"
+    echo "20. Clear All Expired"
+    echo "21. Exit"
     echo "=========================================="
     read -p "Select an option (1-19): " choice
 
@@ -320,11 +326,14 @@ while true; do
         change_secure_stat
         ;;
     20)
+        cleardata
+        ;;
+    21)
         echo "Exiting..."
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please enter a number between 1 and 10."
+        echo "Invalid choice. Please enter a number between 1 and 21."
         ;;
     esac
 
