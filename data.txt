@@ -20,6 +20,7 @@ CRITICAL_LOGIN = 3                                                              
 DURATION_LOG = 3                                                                        # Log expiration
 ADMIN_RES_USER = "change_your_user"                                                     # Register yourself as reseller and put username here
 ADMIN_RES_PASS = "change_your_password"                                                 # Register yourself as reseller and put password here
+SHORT_STATE = "on"                                                                      # Should be on/off (case sensitive)
 
 package_info = {
     'a': {'price': 10, 'days': 30},
