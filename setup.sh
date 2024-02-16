@@ -1,9 +1,6 @@
 #!/bin/bash
 clear
 
-#!/bin/bash
-clear
-
 ipvps=$(curl -s https://ipv4.icanhazip.com)
 
 # Fetch the panel IP from the provided URL
