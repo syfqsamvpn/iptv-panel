@@ -267,7 +267,7 @@ while true; do
     echo "17. Restart Services"
     echo "18. Manual Backup"
     echo "19. Change Secure Stat"
-    echo "20. Change Secure Stat"
+    echo "20. Change UUID Stat"
     echo "21. Clear All Expired"
     echo "22. Exit"
     echo "=========================================="
