@@ -235,6 +235,11 @@ function change_secure_stat() {
         --url "$API_BASE_URL/api/secure_stat"
 }
 
+function change_uuid_stat() {
+    curl --request POST \
+        --url "$API_BASE_URL/api/secure_uuid"
+}
+
 function cleardata() {
     curl --request POST \
         --url "$API_BASE_URL/api/cleardata"
@@ -262,10 +267,11 @@ while true; do
     echo "17. Restart Services"
     echo "18. Manual Backup"
     echo "19. Change Secure Stat"
-    echo "20. Clear All Expired"
-    echo "21. Exit"
+    echo "20. Change Secure Stat"
+    echo "21. Clear All Expired"
+    echo "22. Exit"
     echo "=========================================="
-    read -p "Select an option (1-19): " choice
+    read -p "Select an option (1-22): " choice
 
     case $choice in
     1)
@@ -326,9 +332,12 @@ while true; do
         change_secure_stat
         ;;
     20)
-        cleardata
+        change_uuid_stat
         ;;
     21)
+        cleardata
+        ;;
+    22)
         echo "Exiting..."
         exit 0
         ;;
