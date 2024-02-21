@@ -18,6 +18,7 @@ if [ "$(echo "${panel_ips}" | grep -wc "${ipvps}")" != '0' ]; then
     sudo apt install -y python3-pip
     sudo apt install git -y
     apt install screen -y
+    apt install vnstat -y
     sudo apt install certbot -y
     sudo certbot certonly --standalone -d ${domain}
     git clone https://github.com/syfqsamvpn/iptv-panel.git
