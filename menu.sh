@@ -181,6 +181,12 @@ function get_all_resellers() {
     echo "$response" | jq -C .
 }
 
+function get_all_agents() {
+    response=$(curl -s "$API_BASE_URL/api/get_all_agents?password_input=$admin_password")
+
+    echo "$response" | jq -C .
+}
+
 function add_secure_url() {
     read -p "Enter short ID: " short_id
     read -p "Enter URL: " url
@@ -260,18 +266,19 @@ while true; do
     echo "10. Add User Custom"
     echo "11. Renew User Custom"
     echo "12. Get All Resellers"
-    echo "13. Add Secure URL"
-    echo "14. Edit Secure URL"
-    echo "15. Check Shortlink"
-    echo "16. Unban Multilogin"
-    echo "17. Restart Services"
-    echo "18. Manual Backup"
-    echo "19. Change Secure Stat"
-    echo "20. Change UUID Stat"
-    echo "21. Clear All Expired"
-    echo "22. Exit"
+    echo "13 Get All Agents"
+    echo "14. Add Secure URL"
+    echo "15. Edit Secure URL"
+    echo "16. Check Shortlink"
+    echo "17. Unban Multilogin"
+    echo "18. Restart Services"
+    echo "19. Manual Backup"
+    echo "20. Change Secure Stat"
+    echo "21. Change UUID Stat"
+    echo "22. Clear All Expired"
+    echo "23. Exit"
     echo "=========================================="
-    read -p "Select an option (1-22): " choice
+    read -p "Select an option (1-23): " choice
 
     case $choice in
     1)
@@ -311,38 +318,41 @@ while true; do
         get_all_resellers
         ;;
     13)
-        add_secure_url
+        get_all_agents
         ;;
     14)
-        edit_secure_url
+        add_secure_url
         ;;
     15)
-        check_shortlink
+        edit_secure_url
         ;;
     16)
-        unban_multi
+        check_shortlink
         ;;
     17)
-        restart_api
+        unban_multi
         ;;
     18)
-        ott_sam.sh -b
+        restart_api
         ;;
     19)
-        change_secure_stat
+        ott_sam.sh -b
         ;;
     20)
-        change_uuid_stat
+        change_secure_stat
         ;;
     21)
-        cleardata
+        change_uuid_stat
         ;;
     22)
+        cleardata
+        ;;
+    23)
         echo "Exiting..."
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please enter a number between 1 and 21."
+        echo "Invalid choice. Please enter a number between 1 and 23."
         ;;
     esac
 
