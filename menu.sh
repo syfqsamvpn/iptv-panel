@@ -266,7 +266,7 @@ while true; do
     echo "10. Add User Custom"
     echo "11. Renew User Custom"
     echo "12. Get All Resellers"
-    echo "13 Get All Agents"
+    echo "13. Get All Agents"
     echo "14. Add Secure URL"
     echo "15. Edit Secure URL"
     echo "16. Check Shortlink"
