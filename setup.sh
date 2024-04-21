@@ -25,6 +25,7 @@ if [ "$(echo "${panel_ips}" | grep -wc "${ipvps}")" != '0' ]; then
     echo "$domain" >/root/iptv-panel/domain.txt
     cd /root/iptv-panel
     pip3 install -r requirements.txt
+    pip3 install Flask[async]
 
     mv /root/iptv-panel/menu.sh /usr/bin/menu
     mv /root/iptv-panel/run.sh /usr/bin/run.sh
