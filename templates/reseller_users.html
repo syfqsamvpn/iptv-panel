@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #e6fb05;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+        li:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Information</h1>
+        <p><strong>Reseller Username:</strong> {{ reseller_username }}</p>
+        <p><strong>Balance:</strong> {{ balance }}</p>
+        <h2>Users:</h2>
+        <ul>
+            {% for user in users %}
+                <li>
+                    <strong>Username:</strong> {{ user.username }}<br>
+                    <strong>UUID:</strong> {{ user.uuid }}<br>
+                    <strong>Expiration Date:</strong> {{ user.expiration_date }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
