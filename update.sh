@@ -4,6 +4,10 @@ apt install vnstat -y
 pip3 install pycryptodome
 pip3 install flask_cors
 pip3 install Flask[async]
+[[ ! -d /root/iptv-panel/templates ]] && {
+    mkdir /root/iptv-panel/templates
+}
+curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/templates/reseller_users.html" >/root/iptv-panel/templates/reseller_users.html
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/menu.sh" >/usr/bin/menu && chmod +x /usr/bin/menu
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/main.py" >/root/iptv-panel/main.py
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/system_ott.py" >/root/iptv-panel/system_ott.py
