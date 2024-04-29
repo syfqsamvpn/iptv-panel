@@ -15,4 +15,7 @@ curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/system_ott
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/reseller.py" >/root/iptv-panel/reseller.py
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/pytransform/__init__.py" >/root/iptv-panel/pytransform/__init__.py
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/pytransform/_pytransform.so" >/root/iptv-panel/pytransform/_pytransform.so
-echo 'REFF_STAT = "on"                                                                        # Should be on/off (case sensitive)' >>"/root/iptv-panel/data.txt"
+
+if [ "$(grep -wc "REFF_STAT" "/root/iptv-panel/data.txt")" != '0' ]; then
+    echo 'REFF_STAT = "on"                                                                        # Should be on/off (case sensitive)' >>"/root/iptv-panel/data.txt"
+fi
