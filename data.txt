@@ -3,6 +3,7 @@ admin_pass = "12345678"                                                         
 redirect_url = "https://t.me/sam_sfx/"                                                  # replace redirect url
 TELEGRAM_BOT_TOKEN = "input_telegram_bot_token"                                         # telegram bot token
 TELEGRAM_CHANNEL_ID = "input_telegram_channel_id"                                       # telegram channel id
+TELEGRAM_ADMIN_ID = "input_id_tele"                                                     # telegram admin id
 USER_IPTV_FILE = "user_iptv.json"                                                       # all user 
 USER_LOG_FILE = "user_log.json"                                                         # login log
 RESELLER_FILE = "reseller.json"                                                         # all reseller
@@ -22,6 +23,7 @@ DURATION_LOG = 1                                                                
 ADMIN_RES_USER = "change_your_user"                                                     # Register yourself as reseller and put username here
 ADMIN_RES_PASS = "change_your_password"                                                 # Register yourself as reseller and put password here
 SHORT_STATE = "on"                                                                      # Should be on/off (case sensitive)
+REFF_STAT = "on"                                                                        # Should be on/off (case sensitive)
 
 package_info = {
     'a': {'price': 10, 'days': 30},
