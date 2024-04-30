@@ -36,6 +36,12 @@ if [ "$(curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv/main/panel_bo
             echo "0 13 * * * ott_sam.sh -b > /root/t1.log 2>&1"
         ) | crontab -
     fi
+    if ! crontab -l | grep -q "/root/iptv-panel/api.log"; then
+        (
+            crontab -l
+            echo "55 23 * * * echo -n > /root/iptv-panel/api.log > /root/t1.log 2>&1"
+        ) | crontab -
+    fi
 else
     rm -rf "/root/ottbot"
     crontab -l | grep -v 'start_bot.sh' | crontab -
