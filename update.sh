@@ -9,6 +9,7 @@ pip3 install Flask[async]
 }
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/templates/reseller_users.html" >/root/iptv-panel/templates/reseller_users.html
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/menu.sh" >/usr/bin/menu && chmod +x /usr/bin/menu
+curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/start_bot.sh" >/usr/bin/start_bot.sh && chmod +x /usr/bin/start_bot.sh
 #curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/ott_sam.sh" >/usr/bin/ott_sam.sh && chmod +x /usr/bin/ott_sam.sh
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/main.py" >/root/iptv-panel/main.py
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/system_ott.py" >/root/iptv-panel/system_ott.py
