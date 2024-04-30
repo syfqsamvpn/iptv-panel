@@ -19,3 +19,6 @@ curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/pytransfor
 if [ "$(grep -wc "REFF_STAT" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'REFF_STAT = "on"                                                                        # Should be on/off (case sensitive)' >>"/root/iptv-panel/data.txt"
 fi
+if [ "$(grep -wc "TELEGRAM_ADMIN_ID" "/root/iptv-panel/data.txt")" == '0' ]; then
+    echo 'TELEGRAM_ADMIN_ID = "input_id_tele"                                                     # telegram admin id' >>"/root/iptv-panel/data.txt"
+fi
