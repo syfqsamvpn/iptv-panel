@@ -256,6 +256,20 @@ function cleardata() {
         --url "$API_BASE_URL/api/cleardata"
 }
 
+function ban_sniffer() {
+    read -p "Enter user uuid: " input_uuid
+
+    response=$(curl -s --request POST \
+        --url "$API_BASE_URL/api/ban_sniffer" \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "admin_password": "'"$admin_password"'",
+            "uuid": "'"$input_uuid"'"
+        }')
+
+    echo "$response" | jq -C .
+}
+
 while true; do
     clear
     echo "========= API Interaction Script ========="
@@ -282,9 +296,10 @@ while true; do
     echo "21. Change UUID Stat"
     echo "22. Change IP Stat"
     echo "23. Clear All Expired"
-    echo "24. Exit"
+    echo "24. Ban sniffer"
+    echo "25. Exit"
     echo "=========================================="
-    read -p "Select an option (1-24): " choice
+    read -p "Select an option (1-25): " choice
 
     case $choice in
     1)
@@ -357,6 +372,9 @@ while true; do
         cleardata
         ;;
     24)
+        ban_sniffer
+        ;;
+    25)
         echo "Exiting..."
         exit 0
         ;;
