@@ -25,4 +25,5 @@ if [ "$(grep -wc "TELEGRAM_ADMIN_ID" "/root/iptv-panel/data.txt")" == '0' ]; the
 fi
 if [ "$(grep -wc "VOD_FILE" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'VOD_FILE = "vod.m3u"                                                                    # change this to change vod' >>"/root/iptv-panel/data.txt"
+    touch "/root/iptv-panel/vod.m3u"
 fi
