@@ -14,6 +14,7 @@ EXPIRED_DATA = "expired.json"                                                   
 SECURE_SHORT_FILE = "secure_short.json"                                                 # secure link data
 SECURE_REDIRECT = "https://d25tgymtnqzu8s.cloudfront.net/smil:tv1/playlist.m3u8?id=1"   # Redirect Second
 OTT_FILE = "iptv.m3u"                                                                   # change this to change playlist
+VOD_FILE = "vod.m3u"                                                                    # change this to change vod
 EXPIRED_FILE = "expired.m3u"                                                            # change this to change expired playlist
 BANNED_FILE = "banned.m3u"                                                              # change this to change banned playlist
 STORAGE_FILE = "short_links.json"                                                       # shortlink
