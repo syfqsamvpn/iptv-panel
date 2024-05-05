@@ -36,8 +36,21 @@ function add_user() {
             "package": "'"$package"'",
             "admin_password": "'"$admin_password"'"
         }')
-
-    echo "$response" | jq -C .
+    date=$(echo "${response}" | grep -o '"expiration_date":"[^"]*' | grep -o '[^"]*$' | awk '{print $1}')
+    link=$(echo "${response}" | grep -o '"link":"[^"]*' | grep -o '[^"]*$')
+    username=$(echo "${response}" | grep -o '"username":"[^"]*' | grep -o '[^"]*$')
+    uuid=$(echo "${response}" | grep -o '"uuid":"[^"]*' | grep -o '[^"]*$')
+    template_file="/root/iptv-panel/add_template.txt"
+    template=$(<"$template_file")
+    template=$(echo "${template}" | sed 's/<code>//g; s/<\/code>//g')
+    template=$(echo "${template}" | sed "s|\${date}|${date}|g")
+    template=$(echo "${template}" | sed "s|\${link}|${link}|g")
+    template=$(echo "${template}" | sed "s|\${username}|${username}|g")
+    template=$(echo "${template}" | sed "s|\${uuid}|${uuid}|g")
+    msg="$template"
+    clear
+    echo "$msg"
+    echo ""
 }
 
 function renew_user() {
@@ -55,8 +68,19 @@ function renew_user() {
             "uuid": "'"$user_uuid"'",
             "package": "'"$package"'"
         }')
-
-    echo "$response" | jq -C .
+    date=$(echo "${response}" | grep -o '"new_expiration_date":"[^"]*' | grep -o '[^"]*$' | awk '{print $1}')
+    username=$(echo "${response}" | grep -o '"username":"[^"]*' | grep -o '[^"]*$')
+    uuid=$(echo "${response}" | grep -o '"uuid":"[^"]*' | grep -o '[^"]*$')
+    template_file="/root/iptv-panel/renew_template.txt"
+    template=$(<"$template_file")
+    template=$(echo "${template}" | sed 's/<code>//g; s/<\/code>//g')
+    template=$(echo "${template}" | sed "s|\${date}|${date}|g")
+    template=$(echo "${template}" | sed "s|\${username}|${username}|g")
+    template=$(echo "${template}" | sed "s|\${uuid}|${uuid}|g")
+    msg="$template"
+    clear
+    echo "$msg"
+    echo ""
 }
 
 function add_reseller_balance() {
