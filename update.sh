@@ -30,3 +30,7 @@ fi
 if [ "$(grep -wc "PASSWORD_SEC" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'PASSWORD_SEC = "on"                                                                     # Should be on/off (case sensitive)' >>"/root/iptv-panel/data.txt"
 fi
+
+if [ ! -d "/root/iptv-panel/secure/" ]; then
+    mkdir -p "/root/iptv-panel/secure/"
+fi
