@@ -199,6 +199,20 @@ function unban_multi() {
     echo "$response" | jq -C .
 }
 
+function unban_sniffer() {
+    read -p "Enter UUID: " uuid
+
+    response=$(curl -s --request POST \
+        --url "$API_BASE_URL/api/unban_sniffer" \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "admin_password": "'"$admin_password"'",
+            "uuid": "'"$uuid"'"
+        }')
+
+    echo "$response" | jq -C .
+}
+
 function get_all_resellers() {
     response=$(curl -s "$API_BASE_URL/api/get_all_resellers?password_input=$admin_password")
 
@@ -314,16 +328,17 @@ while true; do
     echo "15. Edit Secure URL"
     echo "16. Check Shortlink"
     echo "17. Unban Multilogin"
-    echo "18. Restart Services"
-    echo "19. Manual Backup"
-    echo "20. Change Secure Stat"
-    echo "21. Change UUID Stat"
-    echo "22. Change IP Stat"
-    echo "23. Clear All Expired"
-    echo "24. Ban sniffer"
-    echo "25. Exit"
+    echo "18. Unban Sniffer"
+    echo "19. Restart Services"
+    echo "20. Manual Backup"
+    echo "21. Change Secure Stat"
+    echo "22. Change UUID Stat"
+    echo "23. Change IP Stat"
+    echo "24. Clear All Expired"
+    echo "25. Ban sniffer"
+    echo "26. Exit"
     echo "=========================================="
-    read -p "Select an option (1-25): " choice
+    read -p "Select an option (1-26): " choice
 
     case $choice in
     1)
@@ -378,32 +393,35 @@ while true; do
         unban_multi
         ;;
     18)
-        restart_api
+        unban_sniffer
         ;;
     19)
-        ott_sam.sh -b
+        restart_api
         ;;
     20)
-        change_secure_stat
+        ott_sam.sh -b
         ;;
     21)
-        change_uuid_stat
+        change_secure_stat
         ;;
     22)
-        change_ip_stat
+        change_uuid_stat
         ;;
     23)
-        cleardata
+        change_ip_stat
         ;;
     24)
-        ban_sniffer
+        cleardata
         ;;
     25)
+        ban_sniffer
+        ;;
+    26)
         echo "Exiting..."
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please enter a number between 1 and 23."
+        echo "Invalid choice. Please enter a number between 1 and 26."
         ;;
     esac
 
