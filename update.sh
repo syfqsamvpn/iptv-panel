@@ -34,3 +34,7 @@ fi
 if [ ! -d "/root/iptv-panel/secure/" ]; then
     mkdir -p "/root/iptv-panel/secure/"
 fi
+
+if [ ! -d "/root/iptv-panel/static/var/" ]; then
+    mkdir -p "/root/iptv-panel/static/var/"
+fi
