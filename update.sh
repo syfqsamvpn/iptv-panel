@@ -41,4 +41,5 @@ fi
 
 if [ ! -f "/root/iptv-panel/expired.json" ]; then
     touch "/root/iptv-panel/expired.json"
+    echo 'EXPIRED_DATA = "expired.json"                                                           # Expired data' >>"/root/iptv-panel/data.txt"
 fi
