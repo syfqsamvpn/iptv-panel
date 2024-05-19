@@ -40,5 +40,5 @@ if [ ! -d "/root/iptv-panel/static/var/" ]; then
 fi
 
 if [ ! -f "/root/iptv-panel/expired.json" ]; then
-    mkdir -p "/root/iptv-panel/expired.json"
+    touch "/root/iptv-panel/expired.json"
 fi
