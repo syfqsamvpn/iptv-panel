@@ -36,6 +36,8 @@ if [ "$(echo "${panel_ips}" | grep -wc "${ipvps}")" != '0' ]; then
     chmod +x /usr/bin/run.sh
     chmod +x /usr/bin/ott_sam.sh
     chmod +x /usr/bin/start_bot.sh
+    mkdir /root/iptv-panel/static
+    mkdir /root/iptv-panel/static/var
     echo "menu" >>"/root/.profile"
     (
         crontab -l
