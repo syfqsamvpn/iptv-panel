@@ -6,7 +6,6 @@ if [ "$1" ]; then
 else
     cpu=$(nproc)
 fi
-echo "$cpu"
 cd /root
 pkill -f "gunicorn.*main:app" >/dev/null 2>&1
 screen -r -S "panel_bot" -X quit >/dev/null 2>&1
