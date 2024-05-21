@@ -14,4 +14,11 @@
 		<category lang="en">Information</category>
 		<icon src="http://api.samhub.my.id/iptv/samflix.png" />
 	</programme>
+	<channel id="sam.3"/>
+	<programme start="{start}" stop="{stop}" channel="sam.3">
+		<title>Account Active(Terima Kasih Kerana Support Kami)</title>
+		<desc lang="en">Terima kasih kerana support kami, Sebarang idea untuk penambahbaikan boleh terus chat di dalam group support SAMFLIX.</desc>
+		<category lang="en">Information</category>
+		<icon src="http://api.samhub.my.id/iptv/samflix.png" />
+	</programme>
 </tv>
