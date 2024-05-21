@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv>
+	<channel id="sam.1"/>
+	<programme start="{start}" stop="{stop}" channel="sam.1">
+		<title>Account Expired(Sila Renew Di SAMFLIX)</title>
+		<desc lang="en">Pastikan anda hanya renew bersama reseller samflix yang berdaftar, sebarang masalah boleh diadukan didalam group support samflix. Terima kasih kerana telah support kami.</desc>
+		<category lang="en">Information</category>
+		<icon src="http://api.samhub.my.id/iptv/samflix.png" />
+	</programme>
+    <channel id="sam.2"/>
+	<programme start="{start}" stop="{stop}" channel="sam.2">
+		<title>Account Banned(Sila Patuhi Peraturan)</title>
+		<desc lang="en">Malang sekali anda telah diban kerana cubaan mencuri playlist. Sebarang kesalahan boleh diadukan didalam group support samflix.</desc>
+		<category lang="en">Information</category>
+		<icon src="http://api.samhub.my.id/iptv/samflix.png" />
+	</programme>
+</tv>
