@@ -308,6 +308,17 @@ function ban_sniffer() {
     echo "$response" | jq -C .
 }
 
+function guardian() {
+    respond=$(curl -s --request POST \
+        --url "$API_BASE_URL/guardian" \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "admin_password": "'"$admin_password"'"
+        }')
+
+    echo "$respond"
+}
+
 while true; do
     clear
     echo "========= API Interaction Script ========="
@@ -336,9 +347,10 @@ while true; do
     echo "23. Change IP Stat"
     echo "24. Clear All Expired"
     echo "25. Ban sniffer"
-    echo "26. Exit"
+    echo "26. Check Suspicious Log"
+    echo "27. Exit"
     echo "=========================================="
-    read -p "Select an option (1-26): " choice
+    read -p "Select an option (1-27): " choice
 
     case $choice in
     1)
@@ -417,11 +429,14 @@ while true; do
         ban_sniffer
         ;;
     26)
+        guardian
+        ;;
+    27)
         echo "Exiting..."
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please enter a number between 1 and 26."
+        echo "Invalid choice. Please enter a number between 1 and 27."
         ;;
     esac
 
