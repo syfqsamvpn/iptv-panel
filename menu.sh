@@ -319,6 +319,15 @@ function guardian() {
     echo "$respond"
 }
 
+function get_data_short() {
+    read -p "Input User Short Link : " short_link
+    short_id=$(echo "$short_link" | grep -o '/[^ ]*' | grep -o '[^/]*$')
+    user_uuid=$(jq -r --arg short_id "$short_id" '.[$short_id]' /root/iptv-panel/short_links.json | grep -o 'uuid=[^ ]*$' | grep -o '[^=]*$')
+    response=$(curl -s "$API_BASE_URL/api/get_user_data?user_uuid=$user_uuid&password_input=$admin_password")
+
+    echo "$response" | jq -C .
+}
+
 while true; do
     clear
     echo "========= API Interaction Script ========="
@@ -326,31 +335,32 @@ while true; do
     echo "2. Add User"
     echo "3. Delete User"
     echo "4. Get User Data"
-    echo "5. Get Users by Reseller"
-    echo "6. Check User Multilogin"
-    echo "7. Check All Multilogin"
-    echo "8. Renew User"
-    echo "9. Add Balance"
-    echo "10. Add User Custom"
-    echo "11. Renew User Custom"
-    echo "12. Get All Resellers"
-    echo "13. Get All Agents"
-    echo "14. Add Secure URL"
-    echo "15. Edit Secure URL"
-    echo "16. Check Shortlink"
-    echo "17. Unban Multilogin"
-    echo "18. Unban Sniffer"
-    echo "19. Restart Services"
-    echo "20. Manual Backup"
-    echo "21. Change Secure Stat"
-    echo "22. Change UUID Stat"
-    echo "23. Change IP Stat"
-    echo "24. Clear All Expired"
-    echo "25. Ban sniffer"
-    echo "26. Check Suspicious Log"
-    echo "27. Exit"
+    echo "5. Get User Data (By short link)"
+    echo "6. Get Users by Reseller"
+    echo "7. Check User Multilogin"
+    echo "8. Check All Multilogin"
+    echo "9. Renew User"
+    echo "10.Add Balance"
+    echo "11. Add User Custom"
+    echo "12. Renew User Custom"
+    echo "13. Get All Resellers"
+    echo "14. Get All Agents"
+    echo "15. Add Secure URL"
+    echo "16. Edit Secure URL"
+    echo "17. Check Shortlink"
+    echo "18. Unban Multilogin"
+    echo "19. Unban Sniffer"
+    echo "20. Restart Services"
+    echo "21. Manual Backup"
+    echo "22. Change Secure Stat"
+    echo "23. Change UUID Stat"
+    echo "24. Change IP Stat"
+    echo "25. Clear All Expired"
+    echo "26. Ban sniffer"
+    echo "27. Check Suspicious Log"
+    echo "28. Exit"
     echo "=========================================="
-    read -p "Select an option (1-27): " choice
+    read -p "Select an option (1-28): " choice
 
     case $choice in
     1)
@@ -366,77 +376,80 @@ while true; do
         get_user_data
         ;;
     5)
-        get_users_by_reseller
+        get_data_short
         ;;
     6)
-        check_multilogin
+        get_users_by_reseller
         ;;
     7)
-        check_all_multilogin
+        check_multilogin
         ;;
     8)
-        renew_user
+        check_all_multilogin
         ;;
     9)
-        add_reseller_balance
+        renew_user
         ;;
     10)
-        add_user_custom
+        add_reseller_balance
         ;;
     11)
-        renew_user_custom
+        add_user_custom
         ;;
     12)
-        get_all_resellers
+        renew_user_custom
         ;;
     13)
-        get_all_agents
+        get_all_resellers
         ;;
     14)
-        add_secure_url
+        get_all_agents
         ;;
     15)
-        edit_secure_url
+        add_secure_url
         ;;
     16)
-        check_shortlink
+        edit_secure_url
         ;;
     17)
-        unban_multi
+        check_shortlink
         ;;
     18)
-        unban_sniffer
+        unban_multi
         ;;
     19)
-        restart_api
+        unban_sniffer
         ;;
     20)
-        ott_sam.sh -b
+        restart_api
         ;;
     21)
-        change_secure_stat
+        ott_sam.sh -b
         ;;
     22)
-        change_uuid_stat
+        change_secure_stat
         ;;
     23)
-        change_ip_stat
+        change_uuid_stat
         ;;
     24)
-        cleardata
+        change_ip_stat
         ;;
     25)
-        ban_sniffer
+        cleardata
         ;;
     26)
-        guardian
+        ban_sniffer
         ;;
     27)
+        guardian
+        ;;
+    28)
         echo "Exiting..."
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please enter a number between 1 and 27."
+        echo "Invalid choice. Please enter a number between 1 and 28."
         ;;
     esac
 
