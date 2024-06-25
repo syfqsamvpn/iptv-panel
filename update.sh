@@ -32,6 +32,10 @@ if [ "$(grep -wc "PASSWORD_SEC" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'PASSWORD_SEC = "on"                                                                     # Should be on/off (case sensitive)' >>"/root/iptv-panel/data.txt"
 fi
 
+if [ "$(grep -wc "OFFLINE_REDIRECT" "/root/iptv-panel/data.txt")" == '0' ]; then
+    echo 'OFFLINE_REDIRECT = "https://d25tgymtnqzu8s.cloudfront.net/smil:tv1/playlist.m3u8?id=1"  # Should be on/off (case sensitive)' >>"/root/iptv-panel/data.txt"
+fi
+
 if [ ! -d "/root/iptv-panel/secure/" ]; then
     mkdir -p "/root/iptv-panel/secure/"
 fi
