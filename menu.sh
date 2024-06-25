@@ -1,5 +1,6 @@
 #!/bin/bash
 
+ipvps=$(curl -s "https://ipv4.icanhazip.com")
 domain=$(sed -n '1p' /root/iptv-panel/domain.txt)
 API_BASE_URL="https://${domain}"
 admin_password=$(grep -o 'admin_pass = "[^"]*' "/root/iptv-panel/data.txt" | grep -o '[^"]*$' | sed -n '1p')
@@ -346,20 +347,28 @@ astro_checker() {
 }
 
 function check_all_secureshort() {
-    clear
-    json_file="/root/iptv-panel/secure_short.json"
+    if [ "$(curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv/main/xtro.txt" | grep -wc "${ipvps}")" != '0' ]; then
+        clear
+        json_file="/root/iptv-panel/secure_short.json"
 
-    keys=$(jq -r 'keys[]' "$json_file")
+        keys=$(jq -r 'keys[]' "$json_file")
 
-    for key in $keys; do
-        value=$(jq -r --arg k "$key" '.[$k]' "$json_file")
-        checker_result=$(astro_checker "$value")
-        echo "${key}: ${checker_result}"
-        if [ "$(echo "$checker_result" | grep -ic "OFFLINE")" != '0' ]; then
-            edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
-        fi
-        echo "--------------------"
-    done
+        for key in $keys; do
+            value=$(jq -r --arg k "$key" '.[$k]' "$json_file")
+            if [ "$value" != "$OFFLINE_REDIRECT" ]; then
+                checker_result=$(astro_checker "$value")
+                echo "${key}: ${checker_result}"
+                if [ "$(echo "$checker_result" | grep -ic "OFFLINE")" != '0' ]; then
+                    edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
+                fi
+            else
+                echo "${key}: DEFAULT"
+            fi
+            echo "--------------------"
+        done
+    else
+        echo "Dont Has Access"
+    fi
 }
 if [[ "$1" == "-c" || "$1" == "--checker" ]]; then
     check_all_secureshort
