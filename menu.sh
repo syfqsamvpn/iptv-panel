@@ -328,6 +328,31 @@ function get_data_short() {
     echo "$response" | jq -C .
 }
 
+astro_checker() {
+    url=$1
+    status_code=$(curl -s --request POST \
+        --url "$API_BASE_URL/astro/checker?url=$url" | jq '.status_code' | tr -d '\n' | sed 's/"//g')
+    if [ "$status_code" != "200" ]; then
+        echo "OFFLINE ❌"
+    else
+        echo "ONLINE ✅"
+    fi
+}
+
+function check_all_secureshort() {
+    clear
+    json_file="/root/iptv-panel/secure_short.json"
+
+    keys=$(jq -r 'keys[]' "$json_file")
+
+    for key in $keys; do
+        value=$(jq -r --arg k "$key" '.[$k]' "$json_file")
+        checker_result=$(astro_checker "$value")
+        echo "${key}: ${checker_result}"
+        echo "--------------------"
+    done
+}
+
 while true; do
     clear
     echo "========= API Interaction Script ========="
@@ -358,9 +383,10 @@ while true; do
     echo "25. Clear All Expired"
     echo "26. Ban sniffer"
     echo "27. Check Suspicious Log"
-    echo "28. Exit"
+    echo "28. Check All Secure Short Status"
+    echo "29. Exit"
     echo "=========================================="
-    read -p "Select an option (1-28): " choice
+    read -p "Select an option (1-29): " choice
 
     case $choice in
     1)
@@ -445,11 +471,14 @@ while true; do
         guardian
         ;;
     28)
+        check_all_secureshort
+        ;;
+    29)
         echo "Exiting..."
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please enter a number between 1 and 28."
+        echo "Invalid choice. Please enter a number between 1 and 29."
         ;;
     esac
 
