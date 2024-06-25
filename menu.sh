@@ -3,6 +3,7 @@
 domain=$(sed -n '1p' /root/iptv-panel/domain.txt)
 API_BASE_URL="https://${domain}"
 admin_password=$(grep -o 'admin_pass = "[^"]*' "/root/iptv-panel/data.txt" | grep -o '[^"]*$' | sed -n '1p')
+OFFLINE_REDIRECT=$(grep -o 'OFFLINE_REDIRECT = "[^"]*' "/root/iptv-panel/data.txt" | grep -o '[^"]*$' | sed -n '1p')
 
 function register_reseller() {
     read -p "Enter reseller username: " reseller_username
@@ -240,10 +241,9 @@ function add_secure_url() {
     echo "$response" | jq -C .
 }
 
-function edit_secure_url() {
-    read -p "Enter short ID to edit: " short_id
-    read -p "Enter new URL: " new_url
-
+req_edit_secureshort() {
+    short_id=$1
+    new_url=$2
     response=$(curl -s --request POST \
         --url "$API_BASE_URL/secure_edit" \
         --header 'Content-Type: application/json' \
@@ -253,6 +253,12 @@ function edit_secure_url() {
         }')
 
     echo "$response" | jq -C .
+}
+
+function edit_secure_url() {
+    read -p "Enter short ID to edit: " short_id
+    read -p "Enter new URL: " new_url
+    req_edit_secureshort "$short_id" "$new_url"
 }
 
 function check_multilogin() {
@@ -349,138 +355,145 @@ function check_all_secureshort() {
         value=$(jq -r --arg k "$key" '.[$k]' "$json_file")
         checker_result=$(astro_checker "$value")
         echo "${key}: ${checker_result}"
+        if [ "$(echo "$checker_result" | grep -ic "OFFLINE")" != '0' ]; then
+            edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
+        fi
         echo "--------------------"
     done
 }
+if [[ "$1" == "-c" || "$1" == "--checker" ]]; then
+    check_all_secureshort
+    exit 0
+else
+    while true; do
+        clear
+        echo "========= API Interaction Script ========="
+        echo "1. Register Reseller"
+        echo "2. Add User"
+        echo "3. Delete User"
+        echo "4. Get User Data"
+        echo "5. Get User Data (By short link)"
+        echo "6. Get Users by Reseller"
+        echo "7. Check User Multilogin"
+        echo "8. Check All Multilogin"
+        echo "9. Renew User"
+        echo "10.Add Balance"
+        echo "11. Add User Custom"
+        echo "12. Renew User Custom"
+        echo "13. Get All Resellers"
+        echo "14. Get All Agents"
+        echo "15. Add Secure URL"
+        echo "16. Edit Secure URL"
+        echo "17. Check Shortlink"
+        echo "18. Unban Multilogin"
+        echo "19. Unban Sniffer"
+        echo "20. Restart Services"
+        echo "21. Manual Backup"
+        echo "22. Change Secure Stat"
+        echo "23. Change UUID Stat"
+        echo "24. Change IP Stat"
+        echo "25. Clear All Expired"
+        echo "26. Ban sniffer"
+        echo "27. Check Suspicious Log"
+        echo "28. Check All Secure Short Status"
+        echo "29. Exit"
+        echo "=========================================="
+        read -p "Select an option (1-29): " choice
 
-while true; do
-    clear
-    echo "========= API Interaction Script ========="
-    echo "1. Register Reseller"
-    echo "2. Add User"
-    echo "3. Delete User"
-    echo "4. Get User Data"
-    echo "5. Get User Data (By short link)"
-    echo "6. Get Users by Reseller"
-    echo "7. Check User Multilogin"
-    echo "8. Check All Multilogin"
-    echo "9. Renew User"
-    echo "10.Add Balance"
-    echo "11. Add User Custom"
-    echo "12. Renew User Custom"
-    echo "13. Get All Resellers"
-    echo "14. Get All Agents"
-    echo "15. Add Secure URL"
-    echo "16. Edit Secure URL"
-    echo "17. Check Shortlink"
-    echo "18. Unban Multilogin"
-    echo "19. Unban Sniffer"
-    echo "20. Restart Services"
-    echo "21. Manual Backup"
-    echo "22. Change Secure Stat"
-    echo "23. Change UUID Stat"
-    echo "24. Change IP Stat"
-    echo "25. Clear All Expired"
-    echo "26. Ban sniffer"
-    echo "27. Check Suspicious Log"
-    echo "28. Check All Secure Short Status"
-    echo "29. Exit"
-    echo "=========================================="
-    read -p "Select an option (1-29): " choice
+        case $choice in
+        1)
+            register_reseller
+            ;;
+        2)
+            add_user
+            ;;
+        3)
+            delete_user
+            ;;
+        4)
+            get_user_data
+            ;;
+        5)
+            get_data_short
+            ;;
+        6)
+            get_users_by_reseller
+            ;;
+        7)
+            check_multilogin
+            ;;
+        8)
+            check_all_multilogin
+            ;;
+        9)
+            renew_user
+            ;;
+        10)
+            add_reseller_balance
+            ;;
+        11)
+            add_user_custom
+            ;;
+        12)
+            renew_user_custom
+            ;;
+        13)
+            get_all_resellers
+            ;;
+        14)
+            get_all_agents
+            ;;
+        15)
+            add_secure_url
+            ;;
+        16)
+            edit_secure_url
+            ;;
+        17)
+            check_shortlink
+            ;;
+        18)
+            unban_multi
+            ;;
+        19)
+            unban_sniffer
+            ;;
+        20)
+            restart_api
+            ;;
+        21)
+            ott_sam.sh -b
+            ;;
+        22)
+            change_secure_stat
+            ;;
+        23)
+            change_uuid_stat
+            ;;
+        24)
+            change_ip_stat
+            ;;
+        25)
+            cleardata
+            ;;
+        26)
+            ban_sniffer
+            ;;
+        27)
+            guardian
+            ;;
+        28)
+            check_all_secureshort
+            ;;
+        29)
+            echo "Exiting..."
+            exit 0
+            ;;
+        *)
+            echo "Invalid choice. Please enter a number between 1 and 29."
+            ;;
+        esac
 
-    case $choice in
-    1)
-        register_reseller
-        ;;
-    2)
-        add_user
-        ;;
-    3)
-        delete_user
-        ;;
-    4)
-        get_user_data
-        ;;
-    5)
-        get_data_short
-        ;;
-    6)
-        get_users_by_reseller
-        ;;
-    7)
-        check_multilogin
-        ;;
-    8)
-        check_all_multilogin
-        ;;
-    9)
-        renew_user
-        ;;
-    10)
-        add_reseller_balance
-        ;;
-    11)
-        add_user_custom
-        ;;
-    12)
-        renew_user_custom
-        ;;
-    13)
-        get_all_resellers
-        ;;
-    14)
-        get_all_agents
-        ;;
-    15)
-        add_secure_url
-        ;;
-    16)
-        edit_secure_url
-        ;;
-    17)
-        check_shortlink
-        ;;
-    18)
-        unban_multi
-        ;;
-    19)
-        unban_sniffer
-        ;;
-    20)
-        restart_api
-        ;;
-    21)
-        ott_sam.sh -b
-        ;;
-    22)
-        change_secure_stat
-        ;;
-    23)
-        change_uuid_stat
-        ;;
-    24)
-        change_ip_stat
-        ;;
-    25)
-        cleardata
-        ;;
-    26)
-        ban_sniffer
-        ;;
-    27)
-        guardian
-        ;;
-    28)
-        check_all_secureshort
-        ;;
-    29)
-        echo "Exiting..."
-        exit 0
-        ;;
-    *)
-        echo "Invalid choice. Please enter a number between 1 and 29."
-        ;;
-    esac
-
-    read -p "Press enter to continue..."
-done
+        read -p "Press enter to continue..."
+    done
+fi
