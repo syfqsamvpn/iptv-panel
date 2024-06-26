@@ -358,6 +358,9 @@ function check_all_secureshort() {
             if [ "$value" != "$OFFLINE_REDIRECT" ]; then
                 checker_result=$(astro_checker "$value")
                 echo "${key}: ${checker_result}"
+                if [ "$(echo "$value" | grep -ic "astro.com.my")" == '0' ] && [ "$(echo "$value" | grep -ic "amazonaws.com")" == '0' ]; then
+                    edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
+                fi
                 if [ "$(echo "$checker_result" | grep -ic "OFFLINE")" != '0' ]; then
                     edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
                 fi
