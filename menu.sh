@@ -339,11 +339,7 @@ astro_checker() {
     url=$1
     status_code=$(curl -s --request POST \
         --url "$API_BASE_URL/astro/checker?url=$url" | jq '.status_code' | tr -d '\n' | sed 's/"//g')
-    if [ "$status_code" != "200" ]; then
-        echo "OFFLINE ❌"
-    else
-        echo "ONLINE ✅"
-    fi
+    echo "$status_code"
 }
 
 function check_all_secureshort() {
@@ -357,11 +353,16 @@ function check_all_secureshort() {
             value=$(jq -r --arg k "$key" '.[$k]' "$json_file")
             if [ "$value" != "$OFFLINE_REDIRECT" ]; then
                 checker_result=$(astro_checker "$value")
-                echo "${key}: ${checker_result}"
+                if [ "$checker_result" == "403" ]; then
+                    token_status="OFFLINE ❌"
+                else
+                    token_status="ONLINE ✅"
+                fi
+                echo "${key}: ${token_status}"
                 if [ "$(echo "$value" | grep -ic "astro.com.my")" == '0' ] && [ "$(echo "$value" | grep -ic "amazonaws.com")" == '0' ]; then
                     edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
                 fi
-                if [ "$(echo "$checker_result" | grep -ic "OFFLINE")" != '0' ]; then
+                if [ "$checker_result" == "403" ]; then
                     edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
                 fi
             else
