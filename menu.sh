@@ -353,17 +353,19 @@ function check_all_secureshort() {
             value=$(jq -r --arg k "$key" '.[$k]' "$json_file")
             if [ "$value" != "$OFFLINE_REDIRECT" ]; then
                 checker_result=$(astro_checker "$value")
-                if [ "$checker_result" == "403" ]; then
-                    token_status="OFFLINE ❌"
-                else
-                    token_status="ONLINE ✅"
-                fi
-                echo "${key}: ${token_status}"
-                if [ "$(echo "$value" | grep -ic "astro.com.my")" == '0' ] && [ "$(echo "$value" | grep -ic "amazonaws.com")" == '0' ]; then
-                    edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
-                fi
-                if [ "$checker_result" == "403" ]; then
-                    edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
+                if [[ ${checker_result} ]]; then
+                    if [ "$checker_result" == "403" ]; then
+                        token_status="OFFLINE ❌"
+                    else
+                        token_status="ONLINE ✅"
+                    fi
+                    echo "${key}: ${token_status}"
+                    if [ "$(echo "$value" | grep -ic "astro.com.my")" == '0' ] && [ "$(echo "$value" | grep -ic "amazonaws.com")" == '0' ]; then
+                        edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
+                    fi
+                    if [ "$checker_result" == "403" ]; then
+                        edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
+                    fi
                 fi
             else
                 echo "${key}: DEFAULT"
