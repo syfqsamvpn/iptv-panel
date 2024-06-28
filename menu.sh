@@ -361,7 +361,7 @@ function check_all_secureshort() {
             if [ "$value" != "$OFFLINE_REDIRECT" ]; then
                 checker_result=$(astro_checker "$value")
                 if [[ ${checker_result} ]]; then
-                    if [ "$checker_result" == "403" ]; then
+                    if [ "$checker_result" != "200" ]; then
                         token_status="OFFLINE ❌"
                     else
                         token_status="ONLINE ✅"
@@ -370,7 +370,7 @@ function check_all_secureshort() {
                     if [ "$(echo "$value" | grep -ic "astro.com.my")" == '0' ] && [ "$(echo "$value" | grep -ic "amazonaws.com")" == '0' ]; then
                         edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
                     fi
-                    if [ "$checker_result" == "403" ]; then
+                    if [ "$checker_result" != "200" ]; then
                         edit_offline=$(req_edit_secureshort "$key" "$OFFLINE_REDIRECT")
                     fi
                 fi
@@ -388,6 +388,7 @@ if [[ "$1" == "-c" || "$1" == "--checker" ]]; then
     exit 0
 else
     while true; do
+        req_head="${BLUE} ━━━━━━━━━━━━━━━━${END} ${GREEN}BY SAMSFX${END} ${BLUE}━━━━━━━━━━━━━━━━${END}"
         clear
         total_user=$(grep -o '"uuid"' "/root/iptv-panel/user_iptv.json" | wc -l)
         echo -e "${BLUE}╔══════════════════════════════════════════╗${END}"
@@ -431,7 +432,9 @@ else
         echo -e "${BLUE} ━━━━━━━━━━━━━━━━${END} ${GREEN}BY SAMSFX${END} ${BLUE}━━━━━━━━━━━━━━━━${END}"
         echo -e ""
         read -p "Select an option (1-29): " choice
-
+        clear
+        echo -e "$req_head"
+        echo ""
         case $choice in
         1)
             register_reseller
