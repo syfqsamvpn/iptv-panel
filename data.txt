@@ -17,6 +17,7 @@ OTT_FILE = "iptv.m3u"                                                           
 VOD_FILE = "vod.m3u"                                                                    # change this to change vod
 EXPIRED_FILE = "expired.m3u"                                                            # change this to change expired playlist
 BANNED_FILE = "banned.m3u"                                                              # change this to change banned playlist
+FREEMIUM_FILE = "freemium.m3u"                                                          # change this to change freenium playlist
 STORAGE_FILE = "short_links.json"                                                       # shortlink
 SAFE_LOGIN = 1                                                                          # max user login
 CRITICAL_LOGIN = 3                                                                      # Auto ban
