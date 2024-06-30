@@ -48,3 +48,6 @@ if [ ! -f "/root/iptv-panel/expired.json" ]; then
     touch "/root/iptv-panel/expired.json"
     echo 'EXPIRED_DATA = "expired.json"                                                           # Expired data' >>"/root/iptv-panel/data.txt"
 fi
+if [ "$(grep -wc "FREEMIUM_FILE" "/root/iptv-panel/data.txt")" == '0' ]; then
+    echo 'FREEMIUM_FILE = "freemium.m3u"                                                          # change this to change freemium playlist' >>"/root/iptv-panel/data.txt"
+fi
