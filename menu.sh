@@ -383,6 +383,13 @@ function check_all_secureshort() {
         echo "Dont Has Access"
     fi
 }
+
+update_bearer() {
+    read -p "Input Bearer: " bearer
+    echo "$bearer" >"/root/iptv-panel/static/var/bearer"
+    echo "Done Update Bearer"
+}
+
 if [[ "$1" == "-c" || "$1" == "--checker" ]]; then
     check_all_secureshort
     exit 0
@@ -427,11 +434,12 @@ else
         echo -e "${BLUE}╠${END} ${GREEN}[26]${END}. ${CYAN}Ban sniffer${END}"
         echo -e "${BLUE}╠${END} ${GREEN}[27]${END}. ${CYAN}Check Suspicious Log${END}"
         echo -e "${BLUE}╠${END} ${GREEN}[28]${END}. ${CYAN}Check All Secure Short Status${END}"
-        echo -e "${BLUE}╚${END} ${GREEN}[29]${END}. ${RED}Exit${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[29]${END}. ${CYAN}Update Bearer [Sooka]${END}"
+        echo -e "${BLUE}╚${END} ${GREEN}[30]${END}. ${RED}Exit${END}"
         echo -e ""
         echo -e "${BLUE} ━━━━━━━━━━━━━━━━${END} ${GREEN}BY SAMSFX${END} ${BLUE}━━━━━━━━━━━━━━━━${END}"
         echo -e ""
-        read -p "Select an option (1-29): " choice
+        read -p "Select an option (1-30): " choice
         clear
         echo -e "$req_head"
         echo ""
@@ -521,6 +529,9 @@ else
             check_all_secureshort
             ;;
         29)
+            update_bearer
+            ;;
+        30)
             echo "Exiting..."
             exit 0
             ;;
