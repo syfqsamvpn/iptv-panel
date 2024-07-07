@@ -25,7 +25,7 @@ DURATION_LOG = 1                                                                
 ADMIN_RES_USER = "change_your_user"                                                     # Register yourself as reseller and put username here
 ADMIN_RES_PASS = "change_your_password"                                                 # Register yourself as reseller and put password here
 SHORT_STATE = "on"                                                                      # Should be on/off (case sensitive)
-SHORT_LINK = "off"                                                                      # Should be on/off (case sensitive)
+SHORT_LINK = "off"                                                                      # Should be off/short_domain (case sensitive)
 REFF_STAT = "on"                                                                        # Should be on/off (case sensitive)
 
 package_info = {
