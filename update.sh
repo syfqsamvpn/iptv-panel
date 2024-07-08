@@ -55,3 +55,7 @@ fi
 if [ "$(grep -wc "SHORT_LINK" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'SHORT_LINK = "off"                                                                      # Should be off/short_domain (case sensitive)' >>"/root/iptv-panel/data.txt"
 fi
+
+if [ "$(grep -wc "VOD_SHORT" "/root/iptv-panel/data.txt")" == '0' ]; then
+    echo 'VOD_SHORT = "vod_short.json"                                                            # vod links' >>"/root/iptv-panel/data.txt"
+fi
