@@ -19,6 +19,7 @@ EXPIRED_FILE = "expired.m3u"                                                    
 BANNED_FILE = "banned.m3u"                                                              # change this to change banned playlist
 FREEMIUM_FILE = "freemium.m3u"                                                          # change this to change freenium playlist
 STORAGE_FILE = "short_links.json"                                                       # shortlink
+VOD_SHORT = "vod_short.json"                                                            # vod links
 SAFE_LOGIN = 1                                                                          # max user login
 CRITICAL_LOGIN = 3                                                                      # Auto ban
 DURATION_LOG = 1                                                                        # Log expiration
