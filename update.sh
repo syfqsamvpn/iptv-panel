@@ -55,7 +55,7 @@ if [ "$(grep -wc "FREEMIUM_FILE" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'FREEMIUM_FILE = "freemium.m3u"                                                          # change this to change freemium playlist' >>"/root/iptv-panel/data.txt"
 fi
 
-if [ "$(grep -wc "SHORT_LINK" "/root/iptv-panel/data.txt")" == '0' ]; then
+if [ "$(grep -wc "SHORT_LINK =" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'SHORT_LINK = "off"                                                                      # Should be off/short_domain (case sensitive)' >>"/root/iptv-panel/data.txt"
 fi
 
