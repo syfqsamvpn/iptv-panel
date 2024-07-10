@@ -451,7 +451,7 @@ else
         echo -e "${BLUE}╠${END} ${GREEN}[29]${END}. ${CYAN}Check All Secure Short Status${END}"
         echo -e "${BLUE}╠${END} ${GREEN}[30]${END}. ${CYAN}Update Bearer [Sooka]${END}"
         echo -e "${BLUE}╚${END} ${GREEN}[31]${END}. ${RED}Exit${END}"
-        echo -e "${BLUE}╚${END} ${GREEN}[U/u]${END}. ${GREEN}UPDATE${END}"
+        echo -e "${BLUE}╚${END} ${GREEN}[U]${END} . ${BLUE}UPDATE${END}"
         echo -e ""
         echo -e "${BLUE} ━━━━━━━━━━━━━━━━${END} ${GREEN}BY SAMSFX${END} ${BLUE}━━━━━━━━━━━━━━━━${END}"
         echo -e ""
