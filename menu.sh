@@ -263,6 +263,20 @@ req_edit_secureshort() {
     echo "$response" | jq -C .
 }
 
+add_secure_vod() {
+    read -p "Enter VOD Link : " link
+
+    response=$(curl -s --request POST \
+        --url "$API_BASE_URL/vod/add" \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "admin_pass": "'"$admin_password"'",
+            "url": "'"$link"'"
+        }')
+
+    echo "$response" | jq -C .
+}
+
 function edit_secure_url() {
     read -p "Enter short ID to edit: " short_id
     read -p "Enter new URL: " new_url
@@ -422,24 +436,25 @@ else
         echo -e "${BLUE}╠${END} ${GREEN}[14]${END}. ${CYAN}Get All Agents${END}"
         echo -e "${BLUE}╠${END} ${GREEN}[15]${END}. ${CYAN}Add Secure URL${END}"
         echo -e "${BLUE}╠${END} ${GREEN}[16]${END}. ${CYAN}Edit Secure URL${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[17]${END}. ${CYAN}Check Shortlink${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[18]${END}. ${CYAN}Unban Multilogin${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[19]${END}. ${CYAN}Unban Sniffer${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[20]${END}. ${CYAN}Restart Services${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[21]${END}. ${CYAN}Manual Backup${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[22]${END}. ${CYAN}Change Secure Stat${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[23]${END}. ${CYAN}Change UUID Stat${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[24]${END}. ${CYAN}Change IP Stat${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[25]${END}. ${CYAN}Clear All Expired${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[26]${END}. ${CYAN}Ban sniffer${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[27]${END}. ${CYAN}Check Suspicious Log${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[28]${END}. ${CYAN}Check All Secure Short Status${END}"
-        echo -e "${BLUE}╠${END} ${GREEN}[29]${END}. ${CYAN}Update Bearer [Sooka]${END}"
-        echo -e "${BLUE}╚${END} ${GREEN}[30]${END}. ${RED}Exit${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[17]${END}. ${CYAN}Add Secure VOD${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[18]${END}. ${CYAN}Check Shortlink${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[19]${END}. ${CYAN}Unban Multilogin${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[20]${END}. ${CYAN}Unban Sniffer${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[21]${END}. ${CYAN}Restart Services${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[22]${END}. ${CYAN}Manual Backup${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[23]${END}. ${CYAN}Change Secure Stat${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[24]${END}. ${CYAN}Change UUID Stat${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[25]${END}. ${CYAN}Change IP Stat${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[26]${END}. ${CYAN}Clear All Expired${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[27]${END}. ${CYAN}Ban sniffer${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[28]${END}. ${CYAN}Check Suspicious Log${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[29]${END}. ${CYAN}Check All Secure Short Status${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[30]${END}. ${CYAN}Update Bearer [Sooka]${END}"
+        echo -e "${BLUE}╚${END} ${GREEN}[31]${END}. ${RED}Exit${END}"
         echo -e ""
         echo -e "${BLUE} ━━━━━━━━━━━━━━━━${END} ${GREEN}BY SAMSFX${END} ${BLUE}━━━━━━━━━━━━━━━━${END}"
         echo -e ""
-        read -p "Select an option (1-30): " choice
+        read -p "Select an option (1-31): " choice
         clear
         echo -e "$req_head"
         echo ""
@@ -493,45 +508,48 @@ else
             edit_secure_url
             ;;
         17)
-            check_shortlink
+            add_secure_vod
             ;;
         18)
-            unban_multi
+            check_shortlink
             ;;
         19)
-            unban_sniffer
+            unban_multi
             ;;
         20)
-            restart_api
+            unban_sniffer
             ;;
         21)
-            ott_sam.sh -b
+            restart_api
             ;;
         22)
-            change_secure_stat
+            ott_sam.sh -b
             ;;
         23)
-            change_uuid_stat
+            change_secure_stat
             ;;
         24)
-            change_ip_stat
+            change_uuid_stat
             ;;
         25)
-            cleardata
+            change_ip_stat
             ;;
         26)
-            ban_sniffer
+            cleardata
             ;;
         27)
-            guardian
+            ban_sniffer
             ;;
         28)
-            check_all_secureshort
+            guardian
             ;;
         29)
-            update_bearer
+            check_all_secureshort
             ;;
         30)
+            update_bearer
+            ;;
+        31)
             echo "Exiting..."
             exit 0
             ;;
