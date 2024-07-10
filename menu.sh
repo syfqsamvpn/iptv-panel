@@ -451,6 +451,7 @@ else
         echo -e "${BLUE}╠${END} ${GREEN}[29]${END}. ${CYAN}Check All Secure Short Status${END}"
         echo -e "${BLUE}╠${END} ${GREEN}[30]${END}. ${CYAN}Update Bearer [Sooka]${END}"
         echo -e "${BLUE}╚${END} ${GREEN}[31]${END}. ${RED}Exit${END}"
+        echo -e "${BLUE}╚${END} ${GREEN}[U/u]${END}. ${GREEN}UPDATE${END}"
         echo -e ""
         echo -e "${BLUE} ━━━━━━━━━━━━━━━━${END} ${GREEN}BY SAMSFX${END} ${BLUE}━━━━━━━━━━━━━━━━${END}"
         echo -e ""
@@ -552,6 +553,12 @@ else
         31)
             echo "Exiting..."
             exit 0
+            ;;
+        u | U)
+            echo "Updating..."
+            bash <(curl -s https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/update.sh)
+            ./run.sh
+            echo "Done Update"
             ;;
         *)
             echo "Invalid choice. Please enter a number between 1 and 29."
