@@ -7,6 +7,12 @@ pip3 install Flask[async]
 [[ ! -d /root/iptv-panel/templates ]] && {
     mkdir /root/iptv-panel/templates
 }
+
+[[ ! -d /root/iptv-panel/banned ]] && {
+    mkdir /root/iptv-panel/banned
+    touch "/root/iptv-panel/banned/banned_userid.txt"
+    touch "/root/iptv-panel/banned/banned_ip.txt"
+}
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/templates/reseller_users.html" >/root/iptv-panel/templates/reseller_users.html
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/menu.sh" >/usr/bin/menu && chmod +x /usr/bin/menu
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/start_bot.sh" >/usr/bin/start_bot.sh && chmod +x /usr/bin/start_bot.sh
