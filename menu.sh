@@ -398,6 +398,32 @@ function check_all_secureshort() {
     fi
 }
 
+ban_ip() {
+    read -p "Input IP Address: " ban_ip
+    echo "${ban_ip}" >>"/root/iptv-panel/banned/banned_ip.txt"
+    echo "IP Successful Banned"
+    echo "IP : ${ban_ip}"
+}
+
+ban_sniff_vod() {
+    for uuid in $(grep -i "uuid" "/root/iptv-panel/api.log" | grep -o 'dec/[^ ]*' | grep -o '[^=]*$' | sort | uniq); do
+        encode_string=$(grep -i "$uuid" "/root/iptv-panel/api.log" | grep -o 'dec/[^?]*' | grep -o '[^/]*$' | sort | uniq | wc -l)
+        if [ $encode_string -ge 100 ]; then
+            echo "Unsafe | $uuid | $encode_string"
+            response=$(curl -s --request POST \
+                --url "$API_BASE_URL/api/ban_sniffer" \
+                --header 'Content-Type: application/json' \
+                --data '{
+            "admin_password": "'"$admin_password"'",
+            "uuid": "'"$uuid"'"
+        }')
+            #echo "$response"
+        else
+            echo "SAFE | $uuid | $encode_string"
+        fi
+    done
+}
+
 update_bearer() {
     read -p "Input Bearer: " bearer
     echo "$bearer" >"/root/iptv-panel/static/var/bearer"
@@ -406,6 +432,12 @@ update_bearer() {
 
 if [[ "$1" == "-c" || "$1" == "--checker" ]]; then
     check_all_secureshort
+    exit 0
+elif [[ "$1" == "-e" || "$1" == "--expired" ]]; then
+    cleardata
+    exit 0
+elif [[ "$1" == "-s" || "$1" == "--sniffer" ]]; then
+    ban_sniff_vod
     exit 0
 else
     while true; do
@@ -450,7 +482,8 @@ else
         echo -e "${BLUE}╠${END} ${GREEN}[28]${END}. ${CYAN}Check Suspicious Log${END}"
         echo -e "${BLUE}╠${END} ${GREEN}[29]${END}. ${CYAN}Check All Secure Short Status${END}"
         echo -e "${BLUE}╠${END} ${GREEN}[30]${END}. ${CYAN}Update Bearer [Sooka]${END}"
-        echo -e "${BLUE}╚${END} ${GREEN}[31]${END}. ${RED}Exit${END}"
+        echo -e "${BLUE}╠${END} ${GREEN}[31]${END}. ${CYAN}Ban IP${END}"
+        echo -e "${BLUE}╚${END} ${GREEN}[32]${END}. ${RED}Exit${END}"
         echo -e "${BLUE}╚${END} ${GREEN}[U]${END} . ${BLUE}UPDATE${END}"
         echo -e ""
         echo -e "${BLUE} ━━━━━━━━━━━━━━━━${END} ${GREEN}BY SAMSFX${END} ${BLUE}━━━━━━━━━━━━━━━━${END}"
@@ -551,6 +584,9 @@ else
             update_bearer
             ;;
         31)
+            ban_ip
+            ;;
+        32)
             echo "Exiting..."
             exit 0
             ;;
