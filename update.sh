@@ -13,6 +13,12 @@ pip3 install Flask[async]
     touch "/root/iptv-panel/banned/banned_userid.txt"
     touch "/root/iptv-panel/banned/banned_ip.txt"
 }
+
+[[ ! -d /root/enc ]] && {
+    mkdir /root/enc
+    touch /root/enc/pytransform
+}
+
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/templates/reseller_users.html" >/root/iptv-panel/templates/reseller_users.html
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/menu.sh" >/usr/bin/menu && chmod +x /usr/bin/menu
 curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/start_bot.sh" >/usr/bin/start_bot.sh && chmod +x /usr/bin/start_bot.sh
@@ -26,6 +32,11 @@ if [ "$(grep -o 'VERSION_ID="[^"]*' /etc/os-release | grep -o '[^"]*$')" == '10'
     curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv/main/deb10/sam_secure.py" >/root/iptv-panel/sam_secure.py
     curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv/main/deb10/pytransform/__init__.py" >/root/iptv-panel/pytransform/__init__.py
     curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv/main/deb10/pytransform/_pytransform.so" >/root/iptv-panel/pytransform/_pytransform.so
+
+    #ENC
+    curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/enc_deb10/main.py" >/root/enc/main.py
+    curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/enc_deb10/pytransform/__init__.py" >/root/enc/pytransform/__init__.py
+    curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/enc_deb10/pytransform/_pytransform.so" >/root/enc/pytransform/_pytransform.so
 else
     curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/main.py" >/root/iptv-panel/main.py
     curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/system_ott.py" >/root/iptv-panel/system_ott.py
@@ -35,7 +46,13 @@ else
     curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/sam_secure.py" >/root/iptv-panel/sam_secure.py
     curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/pytransform/__init__.py" >/root/iptv-panel/pytransform/__init__.py
     curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/pytransform/_pytransform.so" >/root/iptv-panel/pytransform/_pytransform.so
+
+    # ENC
+    curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/enc_deb11/main.py" >/root/enc/main.py
+    curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/enc_deb11/pytransform/__init__.py" >/root/enc/pytransform/__init__.py
+    curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/enc_deb11/pytransform/_pytransform.so" >/root/enc/pytransform/_pytransform.so
 fi
+curl -s "http://api.samhub.my.id/enc/guardian.sh" >/root/enc/guardian.sh && chmod +x /root/enc/guardian.sh
 
 if [ "$(grep -wc "REFF_STAT" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'REFF_STAT = "on"                                                                        # Should be on/off (case sensitive)' >>"/root/iptv-panel/data.txt"
