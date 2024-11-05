@@ -6,4 +6,4 @@ gunicorn
 pycryptodome
 flask_cors
 PyJWT
-
+Flask-Limiter
