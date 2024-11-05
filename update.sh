@@ -4,6 +4,7 @@ apt install vnstat -y
 pip3 install pycryptodome
 pip3 install flask_cors
 pip3 install Flask[async]
+pip3 install Flask-Limiter
 [[ ! -d /root/iptv-panel/templates ]] && {
     mkdir /root/iptv-panel/templates
 }
