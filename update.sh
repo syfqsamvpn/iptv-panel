@@ -1,6 +1,7 @@
 #!/bin/bash
 clear
 apt install vnstat -y
+apt install bc -y
 pip3 install pycryptodome
 pip3 install flask_cors
 pip3 install Flask[async]
