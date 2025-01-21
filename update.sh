@@ -98,3 +98,7 @@ fi
 if [ "$(grep -wc "VOD_SHORT" "/root/iptv-panel/data.txt")" == '0' ]; then
     echo 'VOD_SHORT = "vod_short.json"                                                            # vod links' >>"/root/iptv-panel/data.txt"
 fi
+
+if [ "$(grep -wc "BUYOTT_FILE" "/root/iptv-panel/data.txt")" == '0' ]; then
+    echo 'BUYOTT_FILE = "buy_ott.m3u"                                                             # change this to change buy ott playlist' >>"/root/iptv-panel/data.txt"
+fi
