@@ -2,7 +2,6 @@
 
 clear
 
-# Function to install packages if not already installed
 install_packages() {
     for package in "$@"; do
         if ! dpkg -s "$package" &>/dev/null; then
@@ -11,14 +10,12 @@ install_packages() {
     done
 }
 
-# Function to install Python packages
 install_python_packages() {
     for package in "$@"; do
         pip3 install "$package"
     done
 }
 
-# Function to create directories and files if not exist
 ensure_dir_and_files() {
     local dir="$1"
     shift
@@ -28,31 +25,25 @@ ensure_dir_and_files() {
     done
 }
 
-# Function to download files
 download_file() {
     local url="$1"
     local dest="$2"
     curl -s "$url" -o "$dest"
 }
 
-# Install necessary packages
 install_packages vnstat bc
 
-# Install necessary Python packages
 install_python_packages pycryptodome flask_cors Flask[async] Flask-Limiter flask_limiter
 
-# Ensure required directories and files exist
 ensure_dir_and_files "/root/iptv-panel/templates"
 ensure_dir_and_files "/root/iptv-panel/module"
 ensure_dir_and_files "/root/iptv-panel/banned" "banned_userid.txt" "banned_ip.txt" "banned_useragent.txt"
 ensure_dir_and_files "/root/enc" "pytransform"
 
-# Download specific files
 download_file "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/templates/reseller_users.html" "/root/iptv-panel/templates/reseller_users.html"
 download_file "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/menu.sh" "/usr/bin/menu" && chmod +x /usr/bin/menu
 download_file "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/start_bot.sh" "/usr/bin/start_bot.sh" && chmod +x /usr/bin/start_bot.sh
 
-# Check Debian version and download specific files accordingly
 if [[ "$(grep -o 'VERSION_ID="[^"]*' /etc/os-release | grep -o '[^"]*$')" == "10" ]]; then
     echo "Please Upgrade to DEBIAN 11"
     exit 0
@@ -76,10 +67,8 @@ else
     done
 fi
 
-# Download guardian script
 download_file "http://api.samhub.my.id/enc/guardian.sh" "/root/enc/guardian.sh" && chmod +x /root/enc/guardian.sh
 
-# Ensure data.txt has required configurations
 DATA_FILE="/root/iptv-panel/data.txt"
 declare -A CONFIGS=(
     ["REFF_STAT"]='REFF_STAT = "on"                                                                        # Should be on/off (case sensitive)'
@@ -98,7 +87,6 @@ for key in "${!CONFIGS[@]}"; do
     fi
 done
 
-# Additional directories and files
 ensure_dir_and_files "/root/iptv-panel/secure"
 ensure_dir_and_files "/root/iptv-panel/static/var"
 [[ ! -f "/root/iptv-panel/expired.json" ]] && touch "/root/iptv-panel/expired.json" && echo 'EXPIRED_DATA = "expired.json" # Expired data' >>"$DATA_FILE"
