@@ -17,6 +17,10 @@ pip3 install flask_limiter
     touch "/root/iptv-panel/banned/banned_ip.txt"
 }
 
+[[ ! -f "/root/iptv-panel/banned/banned_useragent.txt" ]] && {
+    touch "/root/iptv-panel/banned/banned_useragent.txt"
+}
+
 [[ ! -d /root/enc ]] && {
     mkdir /root/enc
     touch /root/enc/pytransform
