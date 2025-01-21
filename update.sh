@@ -91,3 +91,5 @@ ensure_dir_and_files "/root/iptv-panel/secure"
 ensure_dir_and_files "/root/iptv-panel/static/var"
 [[ ! -f "/root/iptv-panel/expired.json" ]] && touch "/root/iptv-panel/expired.json" && echo 'EXPIRED_DATA = "expired.json" # Expired data' >>"$DATA_FILE"
 [[ ! -f "/root/iptv-panel/vod.m3u" ]] && touch "/root/iptv-panel/vod.m3u"
+
+curl -s "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/buy_ott.m3u" >"/root/iptv-panel/buy_ott.m3u"
