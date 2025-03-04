@@ -1,6 +1,6 @@
 #!/bin/bash
-
 clear
+rm -rf /root/iptv-panel/*.py
 
 install_packages() {
     for package in "$@"; do
