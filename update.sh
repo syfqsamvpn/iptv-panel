@@ -33,7 +33,7 @@ download_file() {
 
 install_packages vnstat bc
 
-install_python_packages pycryptodome flask_cors Flask[async] Flask-Limiter flask_limiter
+install_python_packages pycryptodome flask_cors Flask[async] Flask-Limiter flask_limiter aiohttp
 
 ensure_dir_and_files "/root/iptv-panel/templates"
 ensure_dir_and_files "/root/iptv-panel/module"
