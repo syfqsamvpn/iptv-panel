@@ -43,6 +43,7 @@ ensure_dir_and_files "/root/enc" "pytransform"
 download_file "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/templates/reseller_users.html" "/root/iptv-panel/templates/reseller_users.html"
 download_file "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/menu.sh" "/usr/bin/menu" && chmod +x /usr/bin/menu
 download_file "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/start_bot.sh" "/usr/bin/start_bot.sh" && chmod +x /usr/bin/start_bot.sh
+download_file "https://raw.githubusercontent.com/syfqsamvpn/iptv-panel/main/run.sh" "/usr/bin/run.sh" && chmod +x /usr/bin/run.sh
 
 if [[ "$(grep -o 'VERSION_ID="[^"]*' /etc/os-release | grep -o '[^"]*$')" == "10" ]]; then
     echo "Please Upgrade to DEBIAN 11"
