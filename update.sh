@@ -37,6 +37,7 @@ install_python_packages pycryptodome flask_cors Flask[async] Flask-Limiter flask
 
 ensure_dir_and_files "/root/iptv-panel/templates"
 ensure_dir_and_files "/root/iptv-panel/module"
+ensure_dir_and_files "/root/iptv-panel/file"
 ensure_dir_and_files "/root/iptv-panel/banned" "banned_userid.txt" "banned_ip.txt" "banned_useragent.txt"
 ensure_dir_and_files "/root/enc" "pytransform"
 
